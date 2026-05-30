@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BioCore | Genomic Forestry</title>
+<meta name="description" content="BioCore engineers carbon-negative, high-performance structural materials at cellular scale using CRISPR gene editing, silviculture, and thermo-mechanical densification.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --parchment:    #f5f0e8;
+  --parchment-dk: #e8e0cd;
+  --ink:          #1c1810;
+  --ink-faded:    #4a4235;
+  --ink-light:    #7a6e5e;
+  --pine:         #2d4a2d;
+  --pine-lt:      #4a7c4a;
+  --bark:         #6b4c2a;
+  --bark-lt:      #9c7444;
+  --heartwood:    #8b3a20;
+  --sapwood:      #c9956a;
+  --sketch-gray:  #9a9088;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
+/* ── NAV ── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--parchment-dk);
+  border-bottom: 2px solid var(--ink);
+  padding: 0.75rem 2rem;
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.logo-wrap { display: flex; align-items: baseline; gap: 0.5rem; text-decoration: none; color: var(--ink); }
+.logo-name  { font-family: 'Playfair Display', Georgia, serif; font-size: 1.8rem; font-weight: 700; line-height: 1; }
+.logo-sub   { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-faded); font-style: italic; }
+nav { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+nav a {
+  font-family: Georgia, serif; font-size: 0.88rem; letter-spacing: 0.04em;
+  color: var(--ink-faded); text-decoration: none; transition: color 0.2s; position: relative;
+}
+nav a::after { content:''; position:absolute; bottom:-2px; left:0; right:0; height:1px; background:var(--pine); transform:scaleX(0); transform-origin:left; transition:transform 0.25s; }
+nav a:hover { color: var(--pine); }
+nav a:hover::after { transform: scaleX(1); }
+.btn-primary {
+  font-family: Georgia, serif; font-size: 0.88rem; letter-spacing: 0.04em;
+  background: var(--pine); color: #fff; border: none;
+  padding: 0.55rem 1.4rem; cursor: pointer; border-radius: 2px;
+  text-decoration: none; transition: background 0.2s, transform 0.15s;
+}
+.btn-primary:hover { background: var(--pine-lt); transform: translateY(-1px); }
+.btn-outline {
+  font-family: Georgia, serif; font-size: 0.88rem; letter-spacing: 0.04em;
+  background: transparent; color: var(--ink); border: 2px solid var(--ink);
+  padding: 0.45rem 1.3rem; cursor: pointer; border-radius: 2px;
+  text-decoration: none; transition: background 0.2s;
+}
+.btn-outline:hover { background: var(--parchment-dk); }
+
+/* ── LAYOUT ── */
+section { position: relative; z-index: 1; }
+.container { max-width: 1160px; margin: 0 auto; padding: 0 2rem; }
+.section-pad { padding: 5rem 0; }
+.sec-tag { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--bark-lt); font-style: italic; display: block; margin-bottom: 0.6rem; }
+.sec-title { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.9rem, 3.5vw, 2.8rem); line-height: 1.15; color: var(--ink); margin-bottom: 0.9rem; }
+.sec-desc { font-size: 1.02rem; color: var(--ink-faded); max-width: 620px; font-style: italic; margin-bottom: 2.5rem; }
+
+/* ── HERO ── */
+#hero { background: var(--parchment); padding: 6rem 0 3rem; border-bottom: 2px solid var(--ink); overflow: hidden; }
+.hero-layout { display: grid; grid-template-columns: 1fr 300px; gap: 4rem; align-items: start; }
+.hero-badge { display: inline-block; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; font-style: italic; color: var(--pine); border: 1.5px solid var(--pine); padding: 0.2rem 0.8rem; border-radius: 2px; margin-bottom: 1.5rem; }
+.hero-title { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(2.2rem, 4.2vw, 3.6rem); line-height: 1.1; color: var(--ink); margin-bottom: 1.4rem; }
+.hero-title em { font-style: italic; color: var(--heartwood); }
+.hero-lead { font-size: 1.05rem; color: var(--ink-faded); max-width: 560px; margin-bottom: 2rem; line-height: 1.7; }
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+.hero-sketch svg { width: 100%; }
+.hero-stats { display: grid; grid-template-columns: repeat(4,1fr); border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); margin-top: 3rem; }
+.stat-card { padding: 1.1rem 1.4rem; border-right: 1.5px solid var(--ink); }
+.stat-card:last-child { border-right: none; }
+.stat-val { font-family: 'Playfair Display', Georgia, serif; font-size: 1.7rem; color: var(--pine); display: block; line-height: 1.1; }
+.stat-lbl { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-light); font-style: italic; }
+
+/* ── MANIFESTO ── */
+#manifesto { background: var(--parchment); border-bottom: 2px solid var(--ink); }
+.editorial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 3rem; }
+.editorial-quote { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 1.35rem; line-height: 1.55; color: var(--heartwood); border-left: 3px solid var(--heartwood); padding-left: 1.5rem; }
+.editorial-body p { margin-bottom: 1rem; color: var(--ink-faded); }
+.editorial-body strong { color: var(--ink); }
+.comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.cmp-card { background: transparent; border: 2px solid var(--ink); padding: 2rem; position: relative; border-radius: 2px; }
+.cmp-card::before { content:''; position:absolute; inset:4px; border:1px dashed var(--sketch-gray); pointer-events:none; border-radius:2px; }
+.cmp-card.engineered { background: #f0ede4; border-color: var(--pine); }
+.cmp-card.engineered::before { border-color: var(--pine-lt); }
+.cmp-label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; font-style: italic; color: var(--bark-lt); margin-bottom: 0.5rem; display: block; }
+.cmp-card.engineered .cmp-label { color: var(--pine); }
+.cmp-card h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.35rem; margin-bottom: 1.1rem; border-bottom: 1.5px solid currentColor; padding-bottom: 0.5rem; }
+.cmp-list { list-style: none; }
+.cmp-list li { padding: 0.32rem 0; border-bottom: 1px solid var(--parchment-dk); font-size: 0.9rem; color: var(--ink-faded); }
+.cmp-list li strong { color: var(--ink); }
+.up { color: var(--pine); font-weight: 700; }
+
+/* ── CRISPR LAB ── */
+#crispr-lab { background: var(--parchment-dk); border-bottom: 2px solid var(--ink); }
+.lab-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.lab-intro { font-size: 0.88rem; font-style: italic; color: var(--ink-faded); margin-bottom: 0.75rem; }
+
+/* gene list — flush bordered rows */
+.gene-grid { display: grid; gap: 0; border: 2px solid var(--ink); border-radius: 2px; overflow: hidden; }
+.gene-card {
+  border-bottom: 1px solid var(--ink);
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  background: var(--parchment);
+  border-left: 4px solid transparent;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  align-items: start;
+}
+.gene-card:last-child { border-bottom: none; }
+.gene-card:hover { background: #ede7d6; }
+.gene-card.active { background: #e6efe6; border-left-color: var(--pine); }
+.gene-card-left {}
+.gene-header { display: flex; align-items: baseline; gap: 0.4rem; margin-bottom: 0.1rem; }
+.gene-sym { font-family: 'Playfair Display', Georgia, serif; font-size: 0.9rem; font-weight: 700; color: var(--bark); }
+.gene-card.active .gene-sym { color: var(--pine); }
+.gene-name { font-size: 0.8rem; font-weight: 600; color: var(--ink); }
+.gene-desc { font-size: 0.76rem; color: var(--ink-faded); font-style: italic; margin-top: 0.08rem; }
+.gene-badge { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.1rem 0.4rem; border: 1px solid var(--sketch-gray); color: var(--sketch-gray); border-radius: 2px; white-space: nowrap; align-self: start; margin-top: 2px; transition: all 0.2s; }
+.gene-card.active .gene-badge { border-color: var(--pine); color: var(--pine); background: rgba(45,107,74,0.1); }
+
+/* HUD panel — two stacked bordered sections */
+.hud-panel { border: 2px solid var(--ink); background: var(--parchment); border-radius: 2px; display: flex; flex-direction: column; overflow: hidden; }
+.hud-section { padding: 1rem 1.1rem; border-bottom: 1.5px solid var(--ink); }
+.hud-section:last-child { border-bottom: none; }
+.hud-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+.hud-header-title { font-family: 'Playfair Display', Georgia, serif; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.03em; }
+.pulse { width: 7px; height: 7px; background: var(--pine); border-radius: 50%; animation: pulse 1.6s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+.hud-stats { display: grid; grid-template-columns: 1fr 1fr; }
+.hud-stat { text-align: center; padding: 0.55rem 0.4rem; border-right: 1px solid var(--parchment-dk); border-bottom: 1px solid var(--parchment-dk); }
+.hud-stat:nth-child(2n) { border-right: none; }
+.hud-stat:nth-last-child(-n+2) { border-bottom: none; }
+.hud-stat-val { font-family: 'Playfair Display', Georgia, serif; font-size: 1.35rem; color: var(--pine); display: block; line-height: 1.1; transition: color 0.3s; }
+.hud-stat-val.changed { color: var(--heartwood); }
+.hud-stat-lbl { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.09em; color: var(--ink-light); }
+
+/* cell microsection */
+.cell-canvas-wrap { padding: 0.65rem 1.1rem 0.85rem; }
+.cell-canvas-label { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sketch-gray); font-style: italic; margin-bottom: 0.35rem; display: block; }
+#cell-svg { display: block; width: 100%; }
+
+/* gene-effect legend in cell area */
+.cell-legend { display: flex; gap: 1rem; flex-wrap: wrap; padding: 0 1.1rem 0.75rem; }
+.cell-legend-item { display: flex; align-items: center; gap: 0.3rem; font-size: 0.65rem; color: var(--ink-light); font-style: italic; }
+.legend-swatch { width: 10px; height: 10px; border-radius: 1px; flex-shrink: 0; }
+
+/* species tabs */
+.species-row { display: flex; flex-direction: column; gap: 0.45rem; }
+.species-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; font-style: italic; color: var(--ink-faded); }
+.species-tabs { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.sp-tab { font-family: Georgia, serif; font-size: 0.78rem; padding: 0.2rem 0.6rem; border: 1.5px solid var(--ink); background: transparent; cursor: pointer; border-radius: 2px; color: var(--ink-faded); transition: all 0.15s; }
+.sp-tab.active { background: var(--pine); color: #fff; border-color: var(--pine); }
+.sp-note { font-size: 0.8rem; font-style: italic; color: var(--ink-faded); line-height: 1.4; }
+
+/* ── DENSIFICATION ── */
+#densification { background: var(--parchment); border-bottom: 2px solid var(--ink); }
+.sim-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.control-group { margin-bottom: 1.4rem; }
+.ctrl-label-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem; }
+.ctrl-label { font-family: Georgia, serif; font-size: 0.85rem; letter-spacing: 0.04em; color: var(--ink); }
+.ctrl-val { font-family: 'Playfair Display', Georgia, serif; font-size: 0.95rem; color: var(--pine); font-weight: 700; }
+input[type=range] { width:100%; -webkit-appearance:none; height:3px; background:var(--ink); border-radius:2px; outline:none; margin-bottom:0.35rem; cursor:pointer; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:15px; height:15px; background:var(--parchment); border:2px solid var(--pine); border-radius:50%; cursor:pointer; }
+.ctrl-help { font-size: 0.78rem; font-style: italic; color: var(--ink-light); line-height: 1.4; }
+.props-box { border: 2px solid var(--ink); border-radius: 2px; background: var(--parchment-dk); overflow: hidden; margin-top: 1.5rem; }
+.props-title { font-family: 'Playfair Display', Georgia, serif; font-size: 0.88rem; letter-spacing: 0.04em; padding: 0.65rem 1rem; border-bottom: 1.5px solid var(--ink); }
+.prop-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.prop-item { padding: 0.65rem 1rem; border-right: 1px solid var(--parchment); border-bottom: 1px solid var(--parchment); }
+.prop-item:nth-child(2n) { border-right: none; }
+.prop-item:nth-last-child(-n+2) { border-bottom: none; }
+.prop-lbl { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-light); font-style: italic; display: block; margin-bottom: 0.12rem; }
+.prop-val { font-family: 'Playfair Display', Georgia, serif; font-size: 1.15rem; color: var(--pine); display: block; transition: color 0.3s; }
+.prop-cmp { font-size: 0.68rem; color: var(--sketch-gray); font-style: italic; }
+
+/* press panel */
+.press-panel { border: 2px solid var(--ink); border-radius: 2px; overflow: hidden; background: var(--parchment); }
+.press-header { background: var(--parchment-dk); border-bottom: 1.5px solid var(--ink); padding: 0.5rem 1rem; display: flex; justify-content: space-between; align-items: center; }
+.press-header-title { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-faded); font-style: italic; }
+.chamber-status { font-family: 'Playfair Display', Georgia, serif; font-size: 0.78rem; color: var(--pine); letter-spacing: 0.06em; transition: color 0.3s; }
+.press-body { padding: 1rem 1.2rem 1.2rem; }
+
+/* ── PERFORMANCE ── */
+#performance { background: var(--parchment-dk); border-bottom: 2px solid var(--ink); }
+.perf-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.chart-panel { border: 2px solid var(--ink); padding: 1.4rem; border-radius: 2px; background: var(--parchment); }
+.chart-title-txt { font-family: 'Playfair Display', Georgia, serif; font-size: 0.95rem; display: block; margin-bottom: 0.7rem; }
+.metric-btns { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.m-btn { font-family: Georgia, serif; font-size: 0.78rem; padding: 0.18rem 0.65rem; border: 1.5px solid var(--ink); background: transparent; cursor: pointer; border-radius: 2px; color: var(--ink-faded); transition: all 0.15s; }
+.m-btn.active { background: var(--ink); color: var(--parchment); }
+.bar-chart { margin-top: 1rem; }
+.bar-row { display: grid; grid-template-columns: 155px 1fr; gap: 0.7rem; align-items: center; margin-bottom: 0.8rem; }
+.bar-lbl { font-size: 0.78rem; color: var(--ink-faded); text-align: right; }
+.bar-lbl.highlight { color: var(--pine); font-weight: 600; }
+.bar-track { background: var(--parchment-dk); border: 1px solid var(--ink); border-radius: 2px; height: 22px; overflow: hidden; }
+.bar-fill { height:100%; border-radius:1px; transition:width 0.5s ease; display:flex; align-items:center; justify-content:flex-end; padding-right:5px; }
+.bar-fill span { font-family: 'Playfair Display', Georgia, serif; font-size: 0.78rem; color:#fff; font-weight:700; }
+.bar-steel    { background: var(--ink-light); }
+.bar-concrete { background: var(--sketch-gray); }
+.bar-softwood { background: var(--bark-lt); }
+.bar-bio      { background: var(--pine); }
+.chart-note { font-size: 0.8rem; font-style: italic; color: var(--ink-light); margin-top: 0.9rem; line-height: 1.45; }
+.stat-big { border: 2px solid var(--pine); padding: 1.4rem; border-radius: 2px; margin-bottom: 1.5rem; background: rgba(45,107,74,0.04); }
+.stat-big-num { font-family: 'Playfair Display', Georgia, serif; font-size: 3.8rem; color: var(--pine); line-height: 1; display: block; }
+.stat-big-lbl { font-size: 0.93rem; color: var(--ink-faded); font-style: italic; }
+.detail-block { margin-bottom: 1.4rem; }
+.detail-block h4 { font-family: 'Playfair Display', Georgia, serif; font-size: 1rem; color: var(--bark); margin-bottom: 0.35rem; }
+.detail-block p { font-size: 0.9rem; color: var(--ink-faded); }
+
+/* ── PIPELINE ── */
+#pipeline { background: var(--parchment); border-bottom: 2px solid var(--ink); }
+.timeline { position: relative; }
+.timeline::before { content:''; position:absolute; left:2.5rem; top:0; bottom:0; width:2px; background:var(--ink); }
+.tl-item { display: grid; grid-template-columns: 5rem 1fr; gap: 2rem; margin-bottom: 2.5rem; }
+.tl-marker { display: flex; flex-direction: column; align-items: center; padding-top: 0.25rem; }
+.tl-phase { width:2.4rem; height:2.4rem; border:2px solid var(--ink); background:var(--parchment); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',Georgia,serif; font-size:0.88rem; font-weight:700; position:relative; z-index:1; }
+.tl-content { border:2px solid var(--ink); padding:1.4rem; border-radius:2px; background:var(--parchment); position:relative; }
+.tl-content::before { content:''; position:absolute; left:-10px; top:1rem; width:8px; height:8px; background:var(--parchment); border-top:2px solid var(--ink); border-left:2px solid var(--ink); transform:rotate(-45deg); }
+.tl-duration { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; font-style: italic; color: var(--bark-lt); margin-bottom: 0.3rem; display: block; }
+.tl-content h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.15rem; margin-bottom: 0.7rem; }
+.tl-content p { font-size: 0.9rem; color: var(--ink-faded); margin-bottom: 0.7rem; }
+.tl-tasks { list-style: none; }
+.tl-tasks li { font-size: 0.87rem; color: var(--ink-faded); padding: 0.18rem 0 0.18rem 1.1rem; position: relative; }
+.tl-tasks li::before { content: '—'; position: absolute; left: 0; color: var(--sketch-gray); }
+
+/* ── GENE DATABASE ── */
+#gene-database { background: var(--parchment-dk); border-bottom: 2px solid var(--ink); }
+.db-filters { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.4rem; }
+.db-btn { font-family: Georgia, serif; font-size: 0.82rem; padding: 0.28rem 0.9rem; border: 1.5px solid var(--ink); background: transparent; cursor: pointer; border-radius: 2px; color: var(--ink-faded); transition: all 0.15s; }
+.db-btn.active { background: var(--ink); color: var(--parchment); }
+.db-wrap { border: 2px solid var(--ink); border-radius: 2px; overflow: auto; background: var(--parchment); }
+table { width: 100%; border-collapse: collapse; }
+thead tr { background: var(--parchment-dk); border-bottom: 2px solid var(--ink); }
+th { padding: 0.7rem 1rem; text-align: left; font-family: Georgia, serif; font-size: 0.82rem; letter-spacing: 0.05em; color: var(--ink); }
+td { padding: 0.6rem 1rem; font-size: 0.84rem; color: var(--ink-faded); border-bottom: 1px solid var(--parchment-dk); vertical-align: top; }
+.gene-id { font-family: 'Playfair Display', Georgia, serif; font-size: 0.9rem; color: var(--bark); }
+.mod-up   { color: var(--pine); font-weight: 600; }
+.mod-down { color: var(--heartwood); font-weight: 600; }
+.mod-mod  { color: var(--bark-lt); font-weight: 600; }
+.lab-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
+.lab-card { border: 2px solid var(--ink); padding: 1.4rem; border-radius: 2px; background: var(--parchment); }
+.lab-card h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.1rem; margin-bottom: 0.9rem; border-bottom: 1px solid var(--ink); padding-bottom: 0.35rem; }
+.labs-list { list-style: none; }
+.labs-list li { font-size: 0.87rem; color: var(--ink-faded); padding: 0.32rem 0; border-bottom: 1px solid var(--parchment-dk); }
+.labs-list li strong { color: var(--ink); }
+
+/* ── BANNER ── */
+.banner { background: var(--ink); color: var(--parchment); padding: 4rem 2rem; text-align: center; }
+.banner h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.7rem, 3.5vw, 2.8rem); font-style: italic; margin-bottom: 0.65rem; }
+.banner p { font-size: 1.05rem; color: #bdb09a; font-style: italic; }
+
+/* ── FOOTER ── */
+footer { background: var(--parchment-dk); border-top: 2px solid var(--ink); padding: 3rem 2rem 2rem; }
+.footer-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; }
+.footer-tagline { font-size: 0.9rem; color: var(--ink-faded); font-style: italic; margin: 0.6rem 0; }
+.footer-copy { font-size: 0.75rem; color: var(--sketch-gray); }
+.footer-col h4 { font-family: Georgia, serif; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faded); margin-bottom: 0.7rem; }
+.footer-col a { display: block; font-size: 0.87rem; color: var(--ink-faded); text-decoration: none; margin-bottom: 0.35rem; transition: color 0.2s; }
+.footer-col a:hover { color: var(--pine); }
+
+/* ── ANIMATIONS ── */
+.fade-up { opacity: 0; transform: translateY(18px); transition: opacity 0.5s, transform 0.5s; }
+.fade-up.visible { opacity: 1; transform: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero-layout { grid-template-columns: 1fr; }
+  .hero-sketch { display: none; }
+  .hero-stats { grid-template-columns: repeat(2,1fr); }
+  .editorial-grid, .comparison-grid, .lab-layout, .sim-layout, .perf-layout { grid-template-columns: 1fr; }
+  .lab-cards, .footer-inner { grid-template-columns: 1fr 1fr; }
+  .bar-row { grid-template-columns: 110px 1fr; }
+}
+@media (max-width: 600px) {
+  nav { display: none; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .lab-cards, .footer-inner { grid-template-columns: 1fr; }
+  .prop-grid { grid-template-columns: 1fr; }
+  .hud-stats { grid-template-columns: 1fr 1fr; }
+  .tl-item { grid-template-columns: 3.5rem 1fr; gap: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<header>
+  <div class="nav-inner">
+    <a href="#" class="logo-wrap">
+      <span class="logo-name">BioCore</span>
+      <span class="logo-sub">Genomic Forestry</span>
+    </a>
+    <nav>
+      <a href="#manifesto">Manifesto</a>
+      <a href="#crispr-lab">Gene Lab</a>
+      <a href="#densification">Simulator</a>
+      <a href="#performance">Performance</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#gene-database">Specifications</a>
+    </nav>
+    <a href="#crispr-lab" class="btn-primary">Open Lab →</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-layout">
+      <div class="hero-text">
+        <span class="hero-badge">Deep Tech · Molecular Silviculture</span>
+        <h1 class="hero-title">Engineering <em>Old-Growth</em> Quality<br>at Plantation Speed</h1>
+        <p class="hero-lead">We bypass centuries of natural growth. Using CRISPR biotechnology and advanced densification, BioCore guides fast-growing plantation trees to produce high-performance structural lumber with old-growth properties in under a decade.</p>
+        <div class="hero-ctas">
+          <a href="#crispr-lab" class="btn-primary">Explore Gene Lab →</a>
+          <a href="#densification" class="btn-outline">Process Simulator</a>
+        </div>
+      </div>
+      <div class="hero-sketch">
+        <svg viewBox="0 0 300 450" xmlns="http://www.w3.org/2000/svg">
+          <!-- Old growth -->
+          <line x1="65" y1="50" x2="65" y2="310" stroke="#1c1810" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M65,50 Q55,80 45,100 Q60,90 65,95 Q70,90 85,100 Q75,80 65,50Z" fill="none" stroke="#1c1810" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M65,80 Q52,110 42,135 Q60,122 65,128 Q70,122 88,135 Q78,110 65,80Z" fill="none" stroke="#1c1810" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M65,115 Q50,145 38,175 Q60,160 65,165 Q70,160 92,175 Q80,145 65,115Z" fill="none" stroke="#1c1810" stroke-width="1.5" stroke-linejoin="round"/>
+          <line x1="30" y1="50" x2="30" y2="310" stroke="#4a4235" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="25" y1="50" x2="35" y2="50" stroke="#4a4235" stroke-width="1"/>
+          <line x1="25" y1="310" x2="35" y2="310" stroke="#4a4235" stroke-width="1"/>
+          <!-- <text x="15" y="195" font-family="Georgia,serif" font-size="10" fill="#4a4235" transform="rotate(-90,15,195)">180' tall</text> -->
+
+          <text x="65" y="417" font-family="Georgia,serif" font-size="9" fill="#4a4235" text-anchor="middle">100 years old</text>
+
+          <!-- Tree Stump for Sapwood -->
+          <circle cx="65" cy="370" r="16" fill="none" stroke="#1c1810" stroke-width="1.5"/>
+          <circle cx="65" cy="370" r="12" fill="none" stroke="#6b4c2a" stroke-width="1"/>
+          <circle cx="65" cy="370" r="8" fill="none" stroke="#6b4c2a" stroke-width="0.8"/>
+          <circle cx="65" cy="370" r="4" fill="none" stroke="#6b4c2a" stroke-width="0.7"/>
+          <circle cx="65" cy="370" r="1.5" fill="#8b3a20"/>
+
+          <text x="65" y="401" font-family="Georgia,serif" font-size="8.5" fill="#4a4235" text-anchor="middle">12–25 rings/in</text>
+
+          <!-- divider -->
+          <line x1="148" y1="40" x2="148" y2="340" stroke="#1c1810" stroke-width="1.5" stroke-dasharray="4,4"/>
+          <text x="148" y="30" font-family="Georgia,serif" font-size="12" fill="#1c1810" text-anchor="middle" font-style="italic">vs.</text>
+          <!-- New growth -->
+          <line x1="235" y1="145" x2="235" y2="310" stroke="#1c1810" stroke-width="2" stroke-linecap="round"/>
+          <path d="M235,145 Q228,165 220,178 Q232,170 235,174 Q238,170 250,178 Q242,165 235,145Z" fill="none" stroke="#1c1810" stroke-width="1.5"/>
+          <path d="M235,166 Q226,186 218,202 Q232,194 235,198 Q238,194 252,202 Q244,186 235,166Z" fill="none" stroke="#1c1810" stroke-width="1.5"/>
+          <path d="M235,188 Q225,208 217,226 Q232,218 235,222 Q238,218 253,226 Q245,208 235,188Z" fill="none" stroke="#1c1810" stroke-width="1.5"/>
+          <line x1="272" y1="145" x2="272" y2="310" stroke="#4a4235" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="267" y1="145" x2="277" y2="145" stroke="#4a4235" stroke-width="1"/>
+          <line x1="267" y1="310" x2="277" y2="310" stroke="#4a4235" stroke-width="1"/>
+
+          <text x="264" y="417" font-family="Georgia,serif" font-size="9" fill="#4a4235" text-anchor="end">15–30 years old</text>
+
+          <!-- Tree Stump for Sapwood -->
+          <circle cx="235" cy="370" r="16" fill="none" stroke="#1c1810" stroke-width="1.5"/>
+          <circle cx="235" cy="370" r="13" fill="none" stroke="#c9956a" stroke-width="1"/>
+          <circle cx="235" cy="370" r="8" fill="none" stroke="#c9956a" stroke-width="1"/>
+          <circle cx="235" cy="370" r="4" fill="#c9956a" opacity="0.4"/>
+          <circle cx="235" cy="370" r="1.5" fill="#8b3a20"/>
+
+          <text x="235" y="401" font-family="Georgia,serif" font-size="8.5" fill="#4a4235" text-anchor="middle">3–4 rings/in</text>
+          
+          <!-- labels -->
+          <text x="148" y="364" font-family="Georgia,serif" font-size="9" fill="#8b3a20" text-anchor="middle" font-style="italic">Heartwood</text>
+          <text x="148" y="380" font-family="Georgia,serif" font-size="9" fill="#c9956a" text-anchor="middle" font-style="italic">Sapwood</text>
+        </svg>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card"><span class="stat-val">−35%</span><span class="stat-lbl">Lignin Reduction Target</span></div>
+      <div class="stat-card"><span class="stat-val">2.5×</span><span class="stat-lbl">Density Multiplier</span></div>
+      <div class="stat-card"><span class="stat-val">150 MPa</span><span class="stat-lbl">Bending Strength (MOR)</span></div>
+      <div class="stat-card" style="border-right:none"><span class="stat-val">300+ yrs</span><span class="stat-lbl">Service Life Rating</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MANIFESTO ── -->
+<section id="manifesto" class="section-pad">
+  <div class="container">
+    <span class="sec-tag">01 / Biological Thesis</span>
+    <h2 class="sec-title" style="max-width:700px">Wood is not failing because nature poorly engineered it. It is failing because it was never engineered for us at all.</h2>
+    <div class="editorial-grid">
+      <div>
+        <p class="editorial-quote">"Trees evolved to survive in ecosystems, decompose, and return nutrients to the soil. We cut them down, treat them with toxic chemicals, and build temporary shelters. Our systems assume wood is fragile."</p>
+      </div>
+      <div class="editorial-body">
+        <p>Industrial construction demands the density, hardness, and stability of old-growth timber — but harvesting ancient forests is ecologically restricted and slow. Modern plantation wood grows fast but is porous, weak, and highly prone to warping and rot. We are forced to treat it with toxic chemicals to delay the inevitable.</p>
+        <p><strong>BioCore</strong> redefines the relationship between growth and construction. By targeting specific genes, we direct the tree to grow wood designed for structural integrity, extreme density, and natural decay resistance from the moment it takes root.</p>
+      </div>
+    </div>
+    <div class="comparison-grid">
+      <div class="cmp-card">
+        <span class="cmp-label">Wild-Type Plantation Wood</span>
+        <h3>Untreated Softwood</h3>
+        <ul class="cmp-list">
+          <li><strong>Density:</strong> 400–500 kg/m³</li>
+          <li><strong>Bending Strength:</strong> ~50–80 MPa</li>
+          <li><strong>Microstructure:</strong> Porous, irregular cell-walls</li>
+          <li><strong>Vulnerability:</strong> Rot, fungi, termites, warping</li>
+          <li><strong>Defects:</strong> Frequent knots from natural branching</li>
+          <li><strong>Lifespan:</strong> High maintenance, decays in decades</li>
+        </ul>
+      </div>
+      <div class="cmp-card engineered">
+        <span class="cmp-label">CRISPR Engineered Monolith</span>
+        <h3>BioCore Wood</h3>
+        <ul class="cmp-list">
+          <li><strong>Density:</strong> 800–1000+ kg/m³ <span class="up">↑</span></li>
+          <li><strong>Bending Strength:</strong> 120–150+ MPa <span class="up">↑</span></li>
+          <li><strong>Microstructure:</strong> Thickened secondary cell walls</li>
+          <li><strong>Vulnerability:</strong> High decay &amp; moisture resistance</li>
+          <li><strong>Defects:</strong> Straight, branch-suppressed trunks</li>
+          <li><strong>Lifespan:</strong> Structural stability for 300+ years</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CRISPR LAB ── -->
+<section id="crispr-lab" class="section-pad">
+  <div class="container">
+    <span class="sec-tag">02 / Cellular Intervention</span>
+    <h2 class="sec-title">CRISPR Gene Engineering Dashboard</h2>
+    <p class="sec-desc">Toggle genes in our transgenic pipeline to see how cellular modifications reconstruct wood architecture from within.</p>
+    <div class="lab-layout">
+      <div>
+        <p class="lab-intro">Select gene cards to activate edits. Tissue-specific expression restricts changes strictly to developing xylem and cambium.</p>
+        <div class="gene-grid">
+          <div class="gene-card" data-gene="da1" onclick="toggleGene(this)">
+            <div class="gene-card-left">
+              <div class="gene-header"><span class="gene-sym">DA1</span></div>
+              <div class="gene-name">Ubiquitin Receptor Knockout</div>
+              <div class="gene-desc">Loss-of-function edit increases cambial cell proliferation and wood volume.</div>
+            </div>
+            <span class="gene-badge" id="badge-da1">Wild-Type</span>
+          </div>
+          <div class="gene-card" data-gene="fourcl1" onclick="toggleGene(this)">
+            <div class="gene-card-left">
+              <div class="gene-header"><span class="gene-sym">4CL1</span></div>
+              <div class="gene-name">4-Coumarate:CoA Ligase</div>
+              <div class="gene-desc">Base editing downregulates lignin production by 13–35% to facilitate mechanical densification.</div>
+            </div>
+            <span class="gene-badge" id="badge-fourcl1">Wild-Type</span>
+          </div>
+          <div class="gene-card" data-gene="ga20ox" onclick="toggleGene(this)">
+            <div class="gene-card-left">
+              <div class="gene-header"><span class="gene-sym">GA20ox</span></div>
+              <div class="gene-name">Gibberellin 20-Oxidase</div>
+              <div class="gene-desc">Xylem-specific overexpression doubles biomass without structural defects.</div>
+            </div>
+            <span class="gene-badge" id="badge-ga20ox">Wild-Type</span>
+          </div>
+          <div class="gene-card" data-gene="cesa" onclick="toggleGene(this)">
+            <div class="gene-card-left">
+              <div class="gene-header"><span class="gene-sym">CesA (4/7/8)</span></div>
+              <div class="gene-name">Cellulose Synthase A Complex</div>
+              <div class="gene-desc">Upregulation drives secondary cell-wall cellulose synthesis, increasing mechanical stiffness.</div>
+            </div>
+            <span class="gene-badge" id="badge-cesa">Wild-Type</span>
+          </div>
+          <div class="gene-card" data-gene="myb221" onclick="toggleGene(this)">
+            <div class="gene-card-left">
+              <div class="gene-header"><span class="gene-sym">PtrMYB221</span></div>
+              <div class="gene-name">NAC/MYB Repressor</div>
+              <div class="gene-desc">Upregulating this repressor decreases lignin while enhancing cell wall flexibility.</div>
+            </div>
+            <span class="gene-badge" id="badge-myb221">Wild-Type</span>
+          </div>
+          <div class="gene-card" data-gene="max" onclick="toggleGene(this)">
+            <div class="gene-card-left">
+              <div class="gene-header"><span class="gene-sym">MAX3 / MAX4</span></div>
+              <div class="gene-name">Strigolactone Pathway</div>
+              <div class="gene-desc">Strigolactone optimisation suppresses lateral branching for knot-free, straight timber.</div>
+            </div>
+            <span class="gene-badge" id="badge-max">Wild-Type</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- HUD -->
+      <div>
+        <div class="hud-panel">
+          <!-- Numeric readout -->
+          <div class="hud-section">
+            <div class="hud-header">
+              <span class="hud-header-title">Cellular Readout</span>
+              <div class="pulse"></div>
+            </div>
+            <div class="hud-stats">
+              <div class="hud-stat"><span class="hud-stat-val" id="hud-lignin">25.0%</span><span class="hud-stat-lbl">Lignin Content</span></div>
+              <div class="hud-stat"><span class="hud-stat-val" id="hud-cellulose">42.0%</span><span class="hud-stat-lbl">Cellulose Content</span></div>
+              <div class="hud-stat"><span class="hud-stat-val" id="hud-thickness">1.0×</span><span class="hud-stat-lbl">Wall Thickness</span></div>
+              <div class="hud-stat"><span class="hud-stat-val" id="hud-growth">1.0×</span><span class="hud-stat-lbl">Growth Rate</span></div>
+            </div>
+          </div>
+
+          <!-- Cell wall SVG —
+               7-cell honeycomb, pointy-top hexagons.
+               r = 22. Spacing: col dx=38, row dy=33.
+               Centers:
+                 Row A (y=44):  [82,44] [120,44] [158,44]
+                 Row B (y=77):  [101,77] [139,77]   <- staggered
+                 Row C (y=110): [82,110] [120,110] [158,110]
+               That gives 8 cells with good coverage and NO overlap at r=22.
+          -->
+          <div class="cell-canvas-wrap">
+            <span class="cell-canvas-label">Cell Wall Microsection — Cross Section</span>
+            <svg id="cell-svg" viewBox="0 0 240 165" xmlns="http://www.w3.org/2000/svg">
+              <rect width="240" height="165" fill="rgba(255,255,255,0.3)" rx="2"/>
+              <!-- 8 cells: 3 top, 2 middle, 3 bottom (honeycomb offset) -->
+              <!-- pointy-top hex: angles 90,150,210,270,330,30 -->
+
+              <!-- ROW A  y=42 -->
+              <g class="hex-cell" id="cell-0"><!-- cx=62 -->
+                <polygon id="outer-0" fill="#f0e8d8" stroke="#5c5248" stroke-width="2"/>
+                <polygon id="inner-0" fill="#e0ccb0" stroke="#6b4c2a" stroke-width="1.5"/>
+                <circle  id="lumen-0" fill="var(--parchment)" stroke="#9c7444" stroke-width="1"/>
+              </g>
+              <g class="hex-cell" id="cell-1"><!-- cx=120 -->
+                <polygon id="outer-1" fill="#f0e8d8" stroke="#5c5248" stroke-width="2"/>
+                <polygon id="inner-1" fill="#e0ccb0" stroke="#6b4c2a" stroke-width="1.5"/>
+                <circle  id="lumen-1" fill="var(--parchment)" stroke="#9c7444" stroke-width="1"/>
+              </g>
+              <g class="hex-cell" id="cell-2"><!-- cx=178 -->
+                <polygon id="outer-2" fill="#f0e8d8" stroke="#5c5248" stroke-width="2"/>
+                <polygon id="inner-2" fill="#e0ccb0" stroke="#6b4c2a" stroke-width="1.5"/>
+                <circle  id="lumen-2" fill="var(--parchment)" stroke="#9c7444" stroke-width="1"/>
+              </g>
+
+              <!-- ROW B  y=80 (staggered +29 x) -->
+              <g class="hex-cell" id="cell-3"><!-- cx=91 -->
+                <polygon id="outer-3" fill="#f0e8d8" stroke="#5c5248" stroke-width="2"/>
+                <polygon id="inner-3" fill="#e0ccb0" stroke="#6b4c2a" stroke-width="1.5"/>
+                <circle  id="lumen-3" fill="var(--parchment)" stroke="#9c7444" stroke-width="1"/>
+              </g>
+              <g class="hex-cell" id="cell-4"><!-- cx=149 -->
+                <polygon id="outer-4" fill="#f0e8d8" stroke="#5c5248" stroke-width="2"/>
+                <polygon id="inner-4" fill="#e0ccb0" stroke="#6b4c2a" stroke-width="1.5"/>
+                <circle  id="lumen-4" fill="var(--parchment)" stroke="#9c7444" stroke-width="1"/>
+              </g>
+
+              <!-- ROW C  y=118 -->
+              <g class="hex-cell" id="cell-5"><!-- cx=62 -->
+                <polygon id="outer-5" fill="#f0e8d8" stroke="#5c5248" stroke-width="2"/>
+                <polygon id="inner-5" fill="#e0ccb0" stroke="#6b4c2a" stroke-width="1.5"/>
+                <circle  id="lumen-5" fill="var(--parchment)" stroke="#9c7444" stroke-width="1"/>
+              </g>
+              <g class="hex-cell" id="cell-6"><!-- cx=120 -->
+                <polygon id="outer-6" fill="#f0e8d8" stroke="#5c5248" stroke-width="2"/>
+                <polygon id="inner-6" fill="#e0ccb0" stroke="#6b4c2a" stroke-width="1.5"/>
+                <circle  id="lumen-6" fill="var(--parchment)" stroke="#9c7444" stroke-width="1"/>
+              </g>
+              <g class="hex-cell" id="cell-7"><!-- cx=178 -->
+                <polygon id="outer-7" fill="#f0e8d8" stroke="#5c5248" stroke-width="2"/>
+                <polygon id="inner-7" fill="#e0ccb0" stroke="#6b4c2a" stroke-width="1.5"/>
+                <circle  id="lumen-7" fill="var(--parchment)" stroke="#9c7444" stroke-width="1"/>
+              </g>
+
+              <!-- Legend row -->
+              <rect x="6"   y="151" width="9" height="9" fill="#e0ccb0" stroke="#6b4c2a" stroke-width="1"/>
+              <text x="18"  y="159" font-family="Georgia,serif" font-size="7.5" fill="#4a4235">Secondary wall</text>
+              <rect x="92"  y="151" width="9" height="9" fill="var(--parchment)" stroke="#9c7444" stroke-width="1"/>
+              <text x="104" y="159" font-family="Georgia,serif" font-size="7.5" fill="#4a4235">Lumen</text>
+              <rect x="152" y="151" width="9" height="9" fill="#f0e8d8" stroke="#5c5248" stroke-width="1.5"/>
+              <text x="164" y="159" font-family="Georgia,serif" font-size="7.5" fill="#4a4235">Primary wall</text>
+            </svg>
+          </div>
+
+          <!-- Species selector -->
+          <div class="hud-section">
+            <div class="species-row">
+              <span class="species-label">Species Selection</span>
+              <div class="species-tabs">
+                <button class="sp-tab active" onclick="selectSpecies('poplar',this)">Populus</button>
+                <button class="sp-tab" onclick="selectSpecies('pine',this)">Pinus radiata</button>
+                <button class="sp-tab" onclick="selectSpecies('eucalyptus',this)">Eucalyptus</button>
+              </div>
+              <p class="sp-note" id="sp-note">Populus is our laboratory model: easy to transform, fast-growing (3–5 year rotation), and highly responsive to lignin suppression.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DENSIFICATION ── -->
+<section id="densification" class="section-pad">
+  <div class="container">
+    <span class="sec-tag">03 / Heavy Infrastructure</span>
+    <h2 class="sec-title">Thermo-Mechanical Densification Simulator</h2>
+    <p class="sec-desc">Our genetic edits prime the wood's lignin matrix. Explore how moderate heat and mechanical compression structuralise timber into lightweight, steel-strength monoliths.</p>
+    <div class="sim-layout">
+      <div>
+        <div class="control-group">
+          <div class="ctrl-label-row">
+            <span class="ctrl-label">Thermal Modification</span>
+            <span class="ctrl-val" id="temp-val">160 °C</span>
+          </div>
+          <input type="range" id="temp-slider" min="150" max="250" value="160" step="5" oninput="updateSimulator()">
+          <p class="ctrl-help">Heat-treatment at 150–180 °C removes hemicellulose, driving out hygroscopic groups to prevent moisture swelling. Above 200 °C, mechanical weakening begins.</p>
+        </div>
+        <div class="control-group">
+          <div class="ctrl-label-row">
+            <span class="ctrl-label">Mechanical Compression</span>
+            <span class="ctrl-val" id="press-val">2.0×</span>
+          </div>
+          <input type="range" id="press-slider" min="1" max="4" value="2" step="0.1" oninput="updateSimulator()">
+          <p class="ctrl-help">Extreme hot-pressing collapses empty cell lumen, consolidating cellulose microfibrils and elevating density up to 1200 kg/m³.</p>
+        </div>
+        <div class="props-box">
+          <div class="props-title">Current Physical Properties</div>
+          <div class="prop-grid">
+            <div class="prop-item">
+              <span class="prop-lbl">Fiber Density</span>
+              <span class="prop-val" id="sim-density">680 kg/m³</span>
+              <span class="prop-cmp">vs 450 wild-type</span>
+            </div>
+            <div class="prop-item">
+              <span class="prop-lbl">Bending Strength</span>
+              <span class="prop-val" id="sim-strength">92 MPa</span>
+              <span class="prop-cmp">vs 50 wild-type</span>
+            </div>
+            <div class="prop-item">
+              <span class="prop-lbl">Janka Hardness</span>
+              <span class="prop-val" id="sim-hardness">1380 lbf</span>
+              <span class="prop-cmp">vs 600 wild-type</span>
+            </div>
+            <div class="prop-item">
+              <span class="prop-lbl">Durability Class</span>
+              <span class="prop-val" id="sim-durability">Class 3</span>
+              <span class="prop-cmp">vs Class 4 (Low)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Press SVG — full view, both params drive clear visuals -->
+      <div>
+        <div class="press-panel">
+          <div class="press-header">
+            <span class="press-header-title">Compression Chamber</span>
+            <span class="chamber-status" id="chamber-status">Ready</span>
+          </div>
+          <div class="press-body">
+            <!--
+              viewBox 0 0 260 300
+              Top platen y=10 h=28, moves down with pressure.
+              Bottom platen y=262 h=28, moves up with pressure.
+              Wood block sits between them.
+              Two indicator bars at bottom: temperature (warm→hot colour)
+              and compression (green fill).
+            -->
+            <svg id="press-svg" viewBox="0 0 260 300" width="100%" xmlns="http://www.w3.org/2000/svg">
+              <!-- Top platen -->
+              <rect id="piston-top" x="10" y="10" width="240" height="28" rx="2" fill="#1c1810"/>
+              <rect id="platen-top-inner" x="12" y="12" width="236" height="24" rx="1" fill="none" stroke="#5c5248" stroke-width="1" opacity="0.3"/>
+              <text id="platen-top-text" x="130" y="28" font-family="Georgia,serif" font-size="9.5" fill="#f5f0e8" text-anchor="middle" letter-spacing="0.06em">PRESS — TOP PLATEN</text>
+              <!-- Arrows indicating downward force -->
+              <polygon id="arrow-down-l" points="40,44 46,56 34,56" fill="#4a4235" opacity="0.5"/>
+              <polygon id="arrow-down-r" points="220,44 226,56 214,56" fill="#4a4235" opacity="0.5"/>
+
+              <!-- Wood sample (fill + clip) -->
+              <clipPath id="wclip"><rect id="wood-clip-rect" x="20" y="50" width="220" height="106" rx="2"/></clipPath>
+              <rect id="wood-rect" x="20" y="50" width="220" height="106" rx="2" fill="#c9956a" stroke="#6b4c2a" stroke-width="2"/>
+              <g clip-path="url(#wclip)">
+                <!-- grain lines -->
+                <line class="grain" x1="20" y1="68"  x2="240" y2="68"  stroke="#6b4c2a" stroke-width="0.8" opacity="0.5"/>
+                <line class="grain" x1="20" y1="85"  x2="240" y2="85"  stroke="#6b4c2a" stroke-width="0.8" opacity="0.5"/>
+                <line class="grain" x1="20" y1="102" x2="240" y2="102" stroke="#6b4c2a" stroke-width="0.8" opacity="0.5"/>
+                <line class="grain" x1="20" y1="119" x2="240" y2="119" stroke="#6b4c2a" stroke-width="0.8" opacity="0.5"/>
+                <line class="grain" x1="20" y1="136" x2="240" y2="136" stroke="#6b4c2a" stroke-width="0.8" opacity="0.5"/>
+                <!-- cell ellipses — 2 rows x 4 -->
+                <ellipse id="ec0" cx="50"  cy="80"  rx="18" ry="18" fill="none" stroke="#8b3a20" stroke-width="1.3" opacity="0.75"/>
+                <ellipse id="ec1" cx="103" cy="80"  rx="18" ry="18" fill="none" stroke="#8b3a20" stroke-width="1.3" opacity="0.75"/>
+                <ellipse id="ec2" cx="157" cy="80"  rx="18" ry="18" fill="none" stroke="#8b3a20" stroke-width="1.3" opacity="0.75"/>
+                <ellipse id="ec3" cx="210" cy="80"  rx="18" ry="18" fill="none" stroke="#8b3a20" stroke-width="1.3" opacity="0.75"/>
+                <ellipse id="ec4" cx="50"  cy="128" rx="18" ry="18" fill="none" stroke="#8b3a20" stroke-width="1.3" opacity="0.75"/>
+                <ellipse id="ec5" cx="103" cy="128" rx="18" ry="18" fill="none" stroke="#8b3a20" stroke-width="1.3" opacity="0.75"/>
+                <ellipse id="ec6" cx="157" cy="128" rx="18" ry="18" fill="none" stroke="#8b3a20" stroke-width="1.3" opacity="0.75"/>
+                <ellipse id="ec7" cx="210" cy="128" rx="18" ry="18" fill="none" stroke="#8b3a20" stroke-width="1.3" opacity="0.75"/>
+              </g>
+
+              <!-- Bottom platen -->
+              <rect id="piston-bot" x="10" y="166" width="240" height="28" rx="2" fill="#1c1810"/>
+              <rect id="platen-bot-inner" x="12" y="168" width="236" height="24" rx="1" fill="none" stroke="#5c5248" stroke-width="1" opacity="0.3"/>
+              <text id="platen-bot-text" x="130" y="184" font-family="Georgia,serif" font-size="9.5" fill="#f5f0e8" text-anchor="middle" letter-spacing="0.06em">PRESS — BOTTOM PLATEN</text>
+              <!-- Arrows indicating upward force -->
+              <polygon id="arrow-up-l" points="40,156 46,144 34,144" fill="#4a4235" opacity="0.5"/>
+              <polygon id="arrow-up-r" points="220,156 226,144 214,144" fill="#4a4235" opacity="0.5"/>
+
+              <!-- Temperature indicator bar -->
+              <text x="10" y="216" font-family="Georgia,serif" font-size="9" fill="#4a4235" font-style="italic">Temperature</text>
+              <rect x="10" y="220" width="240" height="10" rx="2" fill="none" stroke="#1c1810" stroke-width="1.2"/>
+              <rect id="temp-fill" x="10" y="220" width="24" height="10" rx="2" fill="#c9956a"/>
+
+              <!-- Compression indicator bar -->
+              <text x="10" y="248" font-family="Georgia,serif" font-size="9" fill="#4a4235" font-style="italic">Compression</text>
+              <rect x="10" y="252" width="240" height="10" rx="2" fill="none" stroke="#1c1810" stroke-width="1.2"/>
+              <rect id="press-fill" x="10" y="252" width="80" height="10" rx="2" fill="#4a7c4a"/>
+
+              <!-- Wood colour caption -->
+              <text id="wood-temp-note" x="130" y="284" font-family="Georgia,serif" font-size="9" fill="#6b4c2a" text-anchor="middle" font-style="italic">Wood: ambient temperature</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PERFORMANCE ── -->
+<section id="performance" class="section-pad">
+  <div class="container">
+    <span class="sec-tag">04 / Performance Analytics</span>
+    <h2 class="sec-title">Comparative Material Performance</h2>
+    <p class="sec-desc">Accelerated timber matches the structural integrity of structural metals and concrete, without carbon-intensive manufacturing.</p>
+    <div class="perf-layout">
+      <div class="chart-panel">
+        <span class="chart-title-txt">Structural Properties Comparison</span>
+        <div class="metric-btns">
+          <button class="m-btn active" onclick="setMetric('strength',this)">Strength-to-Weight</button>
+          <button class="m-btn" onclick="setMetric('stiffness',this)">Bending Stiffness</button>
+          <button class="m-btn" onclick="setMetric('energy',this)">Embodied Energy</button>
+        </div>
+        <div class="bar-chart">
+          <div class="bar-row"><div class="bar-lbl">Structural Steel (A36)</div><div class="bar-track"><div class="bar-fill bar-steel" id="bar-steel" style="width:70%"><span id="val-steel">70</span></div></div></div>
+          <div class="bar-row"><div class="bar-lbl">Reinforced Concrete</div><div class="bar-track"><div class="bar-fill bar-concrete" id="bar-concrete" style="width:25%"><span id="val-concrete">25</span></div></div></div>
+          <div class="bar-row"><div class="bar-lbl">Douglas-Fir Softwood</div><div class="bar-track"><div class="bar-fill bar-softwood" id="bar-softwood" style="width:50%"><span id="val-softwood">50</span></div></div></div>
+          <div class="bar-row"><div class="bar-lbl highlight">BioCore Wood (Densified)</div><div class="bar-track"><div class="bar-fill bar-bio" id="bar-bio" style="width:95%"><span id="val-bio">95</span></div></div></div>
+        </div>
+        <p class="chart-note" id="chart-note">Strength-to-weight ratio: mechanical bending strength (MOR) divided by density. Densified CRISPR Poplar matches steel structural output at 1/5th the weight.</p>
+      </div>
+      <div>
+        <div class="stat-big">
+          <span class="stat-big-num">10×</span>
+          <span class="stat-big-lbl">Strength increase over natural wood when combining optimised CesA upregulations with hot-pressing.</span>
+        </div>
+        <div class="detail-block">
+          <h4>Accelerated Secondary Xylem</h4>
+          <p>By overexpressing gibberellin synthesis genes (GA20ox) in xylem tissues, we double cambial growth rates. We then utilise hot-press compaction to collapse the cell lumens, achieving the dense structure and load-bearing capacity of centuries-old growth in a fraction of the time.</p>
+        </div>
+        <div class="detail-block">
+          <h4>Industrial Process Compatibility</h4>
+          <p>Because we target branch suppression via MAX genes, we produce highly uniform trunks with fewer knots. This increases primary yield during peeling and sawing, reducing manufacturing waste and providing highly predictable engineered veneer sheets.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PIPELINE ── -->
+<section id="pipeline" class="section-pad">
+  <div class="container">
+    <span class="sec-tag">05 / The Horizon</span>
+    <h2 class="sec-title">Engineering Pipeline</h2>
+    <p class="sec-desc">Biology operates on ecological timelines. Our multi-decade, venture-backed deployment model is structured in four clear phases.</p>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-marker"><div class="tl-phase">01</div></div>
+        <div class="tl-content">
+          <span class="tl-duration">Years 0–1 · Laboratory Validation</span>
+          <h3>Molecular Design &amp; Tissue Culture</h3>
+          <p>We transform Populus hybrid stem cells in sterile tissue cultures using multiplex CRISPR/Cas9. Guide RNAs target 4CL1 and DA1. Young saplings are assayed for expression and structural development in climate chambers before transplanting.</p>
+          <ul class="tl-tasks"><li>CRISPR guide construct assembly</li><li>Tissue cell transformation and regeneration</li><li>Early genetic sequencing (DNA-Seq) verification</li></ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-marker"><div class="tl-phase">02</div></div>
+        <div class="tl-content">
+          <span class="tl-duration">Years 1–3 · Greenhouse Trials</span>
+          <h3>Accelerated Biomass Assays</h3>
+          <p>Transgenic poplars and pines grow in closed containment greenhouses. Near-infrared spectroscopy monitors lignin reduction, cellulose accumulation, and early wood density. We harvest micro-core samples to test pilot thermo-mechanical densification.</p>
+          <ul class="tl-tasks"><li>Growth kinetics modeling</li><li>Micro-scale bending and hardness testing</li><li>Thermal processing kiln calibration</li></ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-marker"><div class="tl-phase" style="border-color:var(--pine);color:var(--pine)">03</div></div>
+        <div class="tl-content" style="border-color:var(--pine)">
+          <span class="tl-duration">Years 3–8 · Controlled Silviculture</span>
+          <h3>Field Testing &amp; Environmental Assessment</h3>
+          <p>We plant high-density clones in controlled, small-scale field trials (0.5–1.0 hectare plots) under strict regulatory oversight. We monitor ecosystems for pollen drift, evaluate sterility vectors, and refine planting grids to optimise natural latewood rings.</p>
+          <ul class="tl-tasks"><li>Establishment of regional trial plantations</li><li>Biodiversity and insect interaction monitoring</li><li>Intermediate core density analysis</li></ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-marker"><div class="tl-phase">04</div></div>
+        <div class="tl-content">
+          <span class="tl-duration">Years 8+ · Scale Infrastructure</span>
+          <h3>Pilot Industrial Output</h3>
+          <p>Full harvest of selected lines for structural lumber manufacture. We integrate output directly into construction supply chains and issue verified, long-duration carbon credits on international carbon markets.</p>
+          <ul class="tl-tasks"><li>Construction grade engineering certification</li><li>Commercial scale compression facility rollout</li><li>Carbon accounting audit and registration</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="banner">
+  <h2>Constructing the next era of industrial materials.</h2>
+  <p>Designed for durability. Grown for the future.</p>
+</div>
+
+<!-- ── GENE DATABASE ── -->
+<section id="gene-database" class="section-pad">
+  <div class="container">
+    <span class="sec-tag">06 / Technical Reference</span>
+    <h2 class="sec-title">Genomic Specifications Database</h2>
+    <p class="sec-desc">Technical database detailing targeted gene sequences, expression outcomes, and verified field metrics across commercial candidate tree species.</p>
+    <div class="db-filters">
+      <button class="db-btn active" onclick="filterDb('all',this)">All Genes</button>
+      <button class="db-btn" onclick="filterDb('lignin',this)">Lignin Biosynthesis</button>
+      <button class="db-btn" onclick="filterDb('cellulose',this)">Cellulose &amp; Growth</button>
+      <button class="db-btn" onclick="filterDb('form',this)">Timber Form</button>
+    </div>
+    <div class="db-wrap">
+      <table>
+        <thead><tr><th>Gene / TF</th><th>Pathway</th><th>Modality</th><th>Expected Effect</th><th>Species</th></tr></thead>
+        <tbody id="gene-table">
+          <tr data-pathway="cellulose"><td class="gene-id">CesA (4/7/8)</td><td>Cellulose Synthesis</td><td><span class="mod-up">↑ Upregulation</span></td><td>Increases cellulose microfibril content, thickens secondary cell-walls, and boosts density/stiffness.</td><td>Populus, Eucalyptus</td></tr>
+          <tr data-pathway="cellulose"><td class="gene-id">SUSY / UGPase</td><td>Cellulose Precursors</td><td><span class="mod-up">↑ Upregulation</span></td><td>Supplies UDP-glucose precursors to accelerate cell-wall mass deposition.</td><td>Populus</td></tr>
+          <tr data-pathway="lignin"><td class="gene-id">PAL, C4H, 4CL</td><td>Lignin Biosynthesis</td><td><span class="mod-down">↓ Downregulation</span></td><td>Reduces total lignin content by 20–40%, shifting fiber ratio for easier mechanical compression.</td><td>Populus, Pine, Eucalyptus</td></tr>
+          <tr data-pathway="lignin"><td class="gene-id">HCT, CCoAOMT</td><td>Lignin Branching</td><td><span class="mod-down">↓ Downregulation</span></td><td>Alters lignin composition (increases H-units), facilitating chemical processing and thermal binding.</td><td>Pinus radiata, Populus</td></tr>
+          <tr data-pathway="lignin"><td class="gene-id">CCR, CAD</td><td>Monolignol Reduction</td><td><span class="mod-down">↓ Partial Downregulation</span></td><td>Drops lignin but accumulates aldehydes. Requires strict tissue-specific xylem control to avoid dwarfism.</td><td>Pinus radiata</td></tr>
+          <tr data-pathway="lignin"><td class="gene-id">F5H, COMT</td><td>Syringyl/Guaiacyl Ratio</td><td><span class="mod-mod">↕ Modulation</span></td><td>Increases S-monolignol units relative to G-units to reduce cross-linking stiffness for easier pulping/densification.</td><td>Populus, Eucalyptus</td></tr>
+          <tr data-pathway="cellulose"><td class="gene-id">NAC (SND1/WND)</td><td>Secondary Wall Regulator</td><td><span class="mod-up">↑ Xylem-Specific</span></td><td>Acts as a master switch to stimulate multiple secondary wall synthesis pathways simultaneously.</td><td>Populus</td></tr>
+          <tr data-pathway="lignin"><td class="gene-id">PtrMYB221</td><td>Transcriptional Repression</td><td><span class="mod-up">↑ Upregulation</span></td><td>Represses lignin synthesis specifically, dropping lignin ~16% while preserving growth vigor.</td><td>Populus</td></tr>
+          <tr data-pathway="cellulose"><td class="gene-id">DA1 (CRISPR KO)</td><td>Cambial Growth Regulation</td><td><span class="mod-down">↓ Complete Knockout</span></td><td>Increases cambial activity, boosting xylem thickness, sugar release, and biomass yield.</td><td>Populus</td></tr>
+          <tr data-pathway="cellulose"><td class="gene-id">WOX4</td><td>Cambium Stem Cells</td><td><span class="mod-up">↑ Upregulation</span></td><td>Promotes cambial proliferation. Synergistic with DA1 knockouts.</td><td>Populus</td></tr>
+          <tr data-pathway="cellulose"><td class="gene-id">GA20ox</td><td>Phytohormone Synthesis</td><td><span class="mod-up">↑ Xylem-Specific</span></td><td>Upregulates gibberellin synthesis, yielding up to 2× biomass accumulation.</td><td>Populus, Pinus radiata</td></tr>
+          <tr data-pathway="form"><td class="gene-id">MAX3 / MAX4</td><td>Strigolactone Biosynthesis</td><td><span class="mod-up">↑ Upregulation</span></td><td>Suppresses lateral branch initiation, eliminating branch knots and producing straight timber.</td><td>Populus, Pinus radiata</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="lab-cards">
+      <div class="lab-card">
+        <h3>Co-Development Consortium Labs</h3>
+        <ul class="labs-list">
+          <li><strong>USDA Forest Products Laboratory</strong> (Madison, WI) · Mechanical assays and thermal processing calibration.</li>
+          <li><strong>University of Maryland</strong> (MSE/Plant Sci) · Wood densification protocols and CRISPR cell editing.</li>
+          <li><strong>North Carolina State University</strong> (Forest Biotech) · Multi-gene CRISPR constructs and trial forestry.</li>
+          <li><strong>Oregon State University</strong> (Strauss Lab) · Transgenic biosafety vectors and sterility traits.</li>
+        </ul>
+      </div>
+      <div class="lab-card">
+        <h3>Environmental &amp; Biosafety Strategy</h3>
+        <p style="font-size:0.87rem;color:var(--ink-faded)">To prevent the spread of modified genetic traits into wild forest populations, all commercial BioCore varieties incorporate genetic sterility vectors (such as LEAFY or floral homeotic gene knockouts). Field operations are conducted in strict compliance with USDA, EPA, and international regulatory frameworks for biotechnology.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span class="logo-name" style="font-size:1.75rem">BioCore</span>
+      <p class="footer-tagline">Rooting for the safety of both people and nature on Earth.</p>
+      <p class="footer-copy">&copy; 2026 BioCore Genomic Forestry Corp. All rights reserved.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Science</h4>
+      <a href="#crispr-lab">Gene Database</a>
+      <a href="#manifesto">Lignin Pathway</a>
+      <a href="#performance">Carbon Metrics</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="#pipeline">Development Timeline</a>
+      <a href="https://ourworldindata.org/deforestation" target="_blank" rel="noopener">Deforestation Stats</a>
+      <a href="#gene-database">Genomic Specifications</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:info@biocore.forest">Institutional Inquiry</a>
+      <a href="#gene-database">Consortium Labs</a>
+      <a href="#pipeline">Deployment Timeline</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════
+// GENE LAB
+// ═══════════════════════════════════════════════════
+const geneState = { da1:false, fourcl1:false, ga20ox:false, cesa:false, myb221:false, max:false };
+const geneEffects = {
+  fourcl1: { lignin:-4.5, cellulose:0,    thickness:0,    growth:0    },
+  myb221:  { lignin:-3.0, cellulose:0,    thickness:0.1,  growth:0    },
+  cesa:    { lignin:0,    cellulose:5.0,  thickness:0.55, growth:0    },
+  ga20ox:  { lignin:0,    cellulose:2.0,  thickness:0.2,  growth:0.9  },
+  da1:     { lignin:0,    cellulose:1.0,  thickness:0.15, growth:0.5  },
+  max:     { lignin:0,    cellulose:0,    thickness:0,    growth:0    }
+};
+const BASE = { lignin:25, cellulose:42, thickness:1, growth:1 };
+
+function toggleGene(card) {
+  const g = card.dataset.gene;
+  geneState[g] = !geneState[g];
+  card.classList.toggle('active', geneState[g]);
+  const badge = document.getElementById('badge-' + g);
+  if (badge) badge.textContent = geneState[g] ? 'Edited' : 'Wild-Type';
+  updateHUD();
+  updateCellSVG();
+}
+
+function computeGeneState() {
+  const s = { ...BASE };
+  for (const [g, on] of Object.entries(geneState)) {
+    if (on && geneEffects[g]) {
+      const e = geneEffects[g];
+      s.lignin    += e.lignin;
+      s.cellulose += e.cellulose;
+      s.thickness += e.thickness;
+      s.growth    += e.growth;
+    }
+  }
+  s.lignin = Math.max(0, s.lignin);
+  return s;
+}
+
+function flashVal(id, text) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const prev = el.textContent;
+  el.textContent = text;
+  if (prev !== text) {
+    el.classList.remove('changed');
+    void el.offsetWidth;
+    el.classList.add('changed');
+    setTimeout(() => el.classList.remove('changed'), 700);
+  }
+}
+
+function updateHUD() {
+  const s = computeGeneState();
+  flashVal('hud-lignin',    s.lignin.toFixed(1)    + '%');
+  flashVal('hud-cellulose', s.cellulose.toFixed(1) + '%');
+  flashVal('hud-thickness', s.thickness.toFixed(1) + '\u00d7');
+  flashVal('hud-growth',    s.growth.toFixed(1)    + '\u00d7');
+}
+
+// ═══════════════════════════════════════════════════
+// CELL WALL SVG
+// 8 cells: pointy-top hexagons in 3/2/3 honeycomb
+// r=21, centres chosen so no overlap
+// Row A y=38: cx=58,116,174  Row B y=76: cx=87,145  Row C y=114: cx=58,116,174
+// ═══════════════════════════════════════════════════
+const CELLS = [
+  [58, 38],[116,38],[174,38],
+  [87, 76],[145,76],
+  [58,114],[116,114],[174,114]
+];
+const BASE_R = 21;
+
+function ptHex(cx, cy, r) {
+  const pts = [];
+  for (let i = 0; i < 6; i++) {
+    const a = Math.PI / 180 * (90 + 60 * i);
+    pts.push((cx + r * Math.cos(a)).toFixed(2) + ',' + (cy + r * Math.sin(a)).toFixed(2));
+  }
+  return pts.join(' ');
+}
+
+function updateCellSVG() {
+  const s = computeGeneState();
+  const growF   = Math.min(1.30, s.growth / BASE.growth);
+  const wallGap = geneState.cesa ? 9 : 5.5;
+  const lumenR  = Math.max(1.5, BASE_R * growF * 0.32 - (wallGap - 5.5) * 0.8);
+  const ligF    = s.lignin / BASE.lignin;
+  const base    = Math.round(224 - ligF * 36);
+  const wfR = base, wfG = Math.round(base * 0.87), wfB = Math.round(base * 0.74);
+  const wallFill  = 'rgb(' + wfR  + ',' + wfG  + ',' + wfB  + ')';
+  const outerFill = 'rgb(' + Math.min(255,wfR+18) + ',' + Math.min(255,wfG+14) + ',' + Math.min(255,wfB+10) + ')';
+
+  for (let i = 0; i < CELLS.length; i++) {
+    const bcx = CELLS[i][0], bcy = CELLS[i][1];
+    const cx = 120 + (bcx - 120) * growF;
+    const cy =  76 + (bcy -  76) * growF;
+    const r  = BASE_R * growF;
+    const ri = Math.max(2, r - wallGap);
+    const outerEl = document.getElementById('outer-' + i);
+    const innerEl = document.getElementById('inner-' + i);
+    const lumenEl = document.getElementById('lumen-' + i);
+    if (outerEl) { outerEl.setAttribute('points', ptHex(cx,cy,r));  outerEl.setAttribute('fill', outerFill); }
+    if (innerEl) { innerEl.setAttribute('points', ptHex(cx,cy,ri)); innerEl.setAttribute('fill', wallFill);  }
+    if (lumenEl) { lumenEl.setAttribute('cx', cx.toFixed(1)); lumenEl.setAttribute('cy', cy.toFixed(1)); lumenEl.setAttribute('r', lumenR.toFixed(1)); }
+  }
+}
+
+// ── SPECIES ──
+const spNotes = {
+  poplar:     'Populus is our laboratory model: easy to transform, fast-growing (3\u20135 year rotation), and highly responsive to lignin suppression.',
+  pine:       'Pinus radiata offers exceptional structural properties. Slower-growing but responds well to GA20ox overexpression for biomass amplification.',
+  eucalyptus: 'Eucalyptus combines rapid growth with naturally high-density wood, making it ideal for mechanical densification trials.'
+};
+function selectSpecies(sp, btn) {
+  document.querySelectorAll('.sp-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('sp-note').textContent = spNotes[sp];
+}
+
+// ═══════════════════════════════════════════════════
+// DENSIFICATION SIMULATOR
+// ═══════════════════════════════════════════════════
+function updateSimulator() {
+  const temp  = parseFloat(document.getElementById('temp-slider').value);
+  const press = parseFloat(document.getElementById('press-slider').value);
+  document.getElementById('temp-val').textContent  = temp + ' \u00b0C';
+  document.getElementById('press-val').textContent = press.toFixed(1) + '\u00d7';
+
+  const tf = (temp  - 150) / 100;
+  const pf = (press - 1)   / 3;
+
+  const density  = Math.round(450  + pf * 750  + tf * 60);
+  const strength = Math.round(50   + pf * 100  + tf * 22);
+  const hardness = Math.round(600  + pf * 1800 + tf * 220);
+  let durability = 'Class 4 (Low)';
+  if      (density > 900) durability = 'Class 1 (Very High)';
+  else if (density > 750) durability = 'Class 2 (High)';
+  else if (density > 600) durability = 'Class 3 (Moderate)';
+
+  document.getElementById('sim-density').textContent    = density   + ' kg/m\u00b3';
+  document.getElementById('sim-strength').textContent   = strength  + ' MPa';
+  document.getElementById('sim-hardness').textContent   = hardness  + ' lbf';
+  document.getElementById('sim-durability').textContent = durability;
+
+  const svg = document.getElementById('press-svg');
+  if (!svg) return;
+
+  // Platen movement
+  const ptopY = 10  + pf * 32;
+  const pbotY = 166 - pf * 32;
+  const woodTop = ptopY + 28;
+  const woodBot = pbotY;
+  const woodH   = Math.max(8, woodBot - woodTop);
+  const ptop = document.getElementById('piston-top');
+  const pbot = document.getElementById('piston-bot');
+  if (ptop) ptop.setAttribute('y', ptopY.toFixed(1));
+  if (pbot) pbot.setAttribute('y', pbotY.toFixed(1));
+  // move inner highlight rects and text labels with platens
+  const ptopInn = document.getElementById('platen-top-inner');
+  const pbotInn = document.getElementById('platen-bot-inner');
+  const ptopTxt = document.getElementById('platen-top-text');
+  const pbotTxt = document.getElementById('platen-bot-text');
+  if (ptopInn) ptopInn.setAttribute('y', (ptopY + 2).toFixed(1));
+  if (pbotInn) pbotInn.setAttribute('y', (pbotY + 2).toFixed(1));
+  if (ptopTxt) ptopTxt.setAttribute('y', (ptopY + 18).toFixed(1));
+  if (pbotTxt) pbotTxt.setAttribute('y', (pbotY + 18).toFixed(1));
+
+  const wr  = document.getElementById('wood-rect');
+  const wcr = document.getElementById('wood-clip-rect');
+  if (wr)  { wr.setAttribute('y',  woodTop.toFixed(1)); wr.setAttribute('height',  woodH.toFixed(1)); }
+  if (wcr) { wcr.setAttribute('y', woodTop.toFixed(1)); wcr.setAttribute('height', woodH.toFixed(1)); }
+
+  // Wood colour shifts with temperature
+  const wR = Math.round(201 + tf * 38);
+  const wG = Math.round(149 - tf * 44);
+  const wB = Math.round(106 - tf * 54);
+  if (wr) wr.setAttribute('fill', 'rgb('+wR+','+Math.max(50,wG)+','+Math.max(30,wB)+')');
+
+  // Cell ellipses
+  const midY  = woodTop + woodH / 2;
+  const row1Y = midY - woodH * 0.25;
+  const row2Y = midY + woodH * 0.25;
+  const ry = Math.max(2.5, 18 - pf * 14);
+  const rx = Math.min(24,  18 + pf * 5);
+  const xs = [50, 103, 157, 210];
+  for (let i = 0; i < 4; i++) {
+    const e1 = document.getElementById('ec' + i);
+    const e2 = document.getElementById('ec' + (i + 4));
+    if (e1) { e1.setAttribute('cx', xs[i]); e1.setAttribute('cy', row1Y.toFixed(1)); e1.setAttribute('rx', rx.toFixed(1)); e1.setAttribute('ry', ry.toFixed(1)); }
+    if (e2) { e2.setAttribute('cx', xs[i]); e2.setAttribute('cy', row2Y.toFixed(1)); e2.setAttribute('rx', rx.toFixed(1)); e2.setAttribute('ry', ry.toFixed(1)); }
+  }
+
+  // Force arrows follow platens
+  const adl = document.getElementById('arrow-down-l');
+  const adr = document.getElementById('arrow-down-r');
+  const aul = document.getElementById('arrow-up-l');
+  const aur = document.getElementById('arrow-up-r');
+  const db = ptopY + 28, ub = pbotY;
+  if (adl) adl.setAttribute('points', '40,'+(db)+' 46,'+(db+12)+' 34,'+(db+12));
+  if (adr) adr.setAttribute('points', '220,'+(db)+' 226,'+(db+12)+' 214,'+(db+12));
+  if (aul) aul.setAttribute('points', '40,'+(ub)+' 46,'+(ub-12)+' 34,'+(ub-12));
+  if (aur) aur.setAttribute('points', '220,'+(ub)+' 226,'+(ub-12)+' 214,'+(ub-12));
+
+  // Temperature bar
+  const tempFill = document.getElementById('temp-fill');
+  const tempLbl  = document.getElementById('temp-pct-lbl');
+  if (tempFill) {
+    tempFill.setAttribute('width', (tf * 240).toFixed(1));
+    const tR = Math.round(175 + tf * 68), tG = Math.round(140 - tf * 90), tB = Math.round(70 - tf * 60);
+    tempFill.setAttribute('fill', 'rgb('+tR+','+Math.max(20,tG)+','+Math.max(0,tB)+')');
+  }
+  if (tempLbl) tempLbl.textContent = Math.round(tf * 100) + '%';
+
+  // Compression bar
+  const pressFill = document.getElementById('press-fill');
+  const pressLbl  = document.getElementById('press-pct-lbl');
+  if (pressFill) pressFill.setAttribute('width', (pf * 240).toFixed(1));
+  if (pressLbl)  pressLbl.textContent = Math.round(pf * 100) + '%';
+
+  // Wood label
+  const note = document.getElementById('wood-temp-note');
+  if (note) {
+    if      (tf > 0.6) note.textContent = 'Wood: high-temperature treatment \u2014 colour darkened';
+    else if (tf > 0.2) note.textContent = 'Wood: moderate heat \u2014 hemicellulose removal active';
+    else               note.textContent = 'Wood: ambient temperature';
+  }
+
+  // Status
+  const statEl = document.getElementById('chamber-status');
+  if (statEl) {
+    if      (pf > 0.65) { statEl.textContent = 'Compressing'; statEl.style.color = 'var(--heartwood)'; }
+    else if (pf > 0.25) { statEl.textContent = 'Active';      statEl.style.color = 'var(--bark-lt)';   }
+    else                { statEl.textContent = 'Ready';       statEl.style.color = 'var(--pine)';      }
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// PERFORMANCE CHART
+// ═══════════════════════════════════════════════════
+const metrics = {
+  strength:  { steel:70,  concrete:25, softwood:50, bio:95, note:'Strength-to-weight ratio: mechanical bending strength (MOR) divided by density. Densified CRISPR Poplar matches steel structural output at 1/5th the weight.' },
+  stiffness: { steel:85,  concrete:40, softwood:45, bio:80, note:'Bending stiffness (MOE) in GPa. BioCore densified wood achieves ~20 GPa, comparable to conventional structural steel and far exceeding ordinary plantation softwoods.' },
+  energy:    { steel:88,  concrete:55, softwood:15, bio:10, note:'Embodied energy (MJ/kg). BioCore has 10\u201315 MJ/kg \u2014 dramatically lower than steel (28 MJ/kg) and reinforced concrete, reflecting the biological growth process.' }
+};
+function setMetric(m, btn) {
+  document.querySelectorAll('.m-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const d = metrics[m];
+  ['steel','concrete','softwood','bio'].forEach(k => {
+    const bar = document.getElementById('bar-' + k);
+    const val = document.getElementById('val-' + k);
+    if (bar) bar.style.width = d[k] + '%';
+    if (val) val.textContent = d[k];
+  });
+  const note = document.getElementById('chart-note');
+  if (note) note.textContent = d.note;
+}
+
+// ═══════════════════════════════════════════════════
+// DB FILTER
+// ═══════════════════════════════════════════════════
+function filterDb(pathway, btn) {
+  document.querySelectorAll('.db-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#gene-table tr').forEach(row => {
+    row.style.display = (pathway === 'all' || row.dataset.pathway === pathway) ? '' : 'none';
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// FADE IN
+// ═══════════════════════════════════════════════════
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.tl-item, .cmp-card, .stat-big').forEach(el => {
+  el.classList.add('fade-up'); obs.observe(el);
+});
+
+// ── INIT ──
+updateSimulator();
+updateCellSVG();
+</script>
+</body>
+</html>
